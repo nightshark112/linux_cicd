@@ -13,8 +13,8 @@ jobs:
       - run: pytest
 
   build:
-  needs: testing
-  
+    needs: testing
+
     runs-on: ubuntu-latest
 
     permissions:
