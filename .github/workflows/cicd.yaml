@@ -56,7 +56,7 @@ jobs:
           host: ${{ secrets.SERVER_IP_ADDRESS }}
           username: yc-user
           key: ${{ secrets.SERVER_PRIVATE_KEY }}
-          passphrase: "123"
+          passphrase: 123
           script: |
             docker pull ghcr.io/nightshark112/linux_cicd:main:latest
             cd test_cicd
