@@ -58,7 +58,7 @@ jobs:
           key: ${{ secrets.SERVER_PRIVATE_KEY }}
           passphrase: 123
           script: |
-            docker pull ghcr.io/nightshark112/linux_cicd:main:latest
-            cd test_cicd
+            cd home/yc-user/test_cicd
+            docker pull ghcr.io/nightshark112/linux_cicd:main
             docker compose down
             docker compose up -d
