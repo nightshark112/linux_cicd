@@ -11,8 +11,10 @@ jobs:
       - run: pip install flask pytest
 
       - run: pytest
-    
+
   build:
+  needs: testing
+  
     runs-on: ubuntu-latest
 
     permissions:
@@ -42,3 +44,21 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+  
+  deploy:
+    needs: build
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.SERVER_IP_ADDRESS }}
+          username: yc-user
+          key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          passphrase: "123"
+          script: |
+            docker pull ghcr.io/nightshark112/linux_cicd:main:latest
+            cd test_cicd
+            docker compose down
+            docker compose up -d
